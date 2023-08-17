@@ -2,7 +2,7 @@ const mongoose=require ('mongoose')
 const NotesSchema=new Schema({
     name:{
         type:String,
-        required:true
+       
     },
     title:{
         type:String,
