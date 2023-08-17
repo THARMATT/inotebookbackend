@@ -1,13 +1,12 @@
 const mongoose=require ('mongoose')
 const{Schema}=mongoose;
 const UserSchema=new Schema({
-    username:{
+name:{
         type:String,
-        required:true
-    },
+        require:true },
     email:{
         type:String,
-        required:true,
+        require:true,
         unique:true,
     },
     password:{
@@ -20,5 +19,6 @@ const UserSchema=new Schema({
         
     }
 })
-const User
-module.exports=mongoose.model('user',UserSchema)
+const User=mongoose.model('user',UserSchema)
+// User.createIndexes();
+module.exports=User
