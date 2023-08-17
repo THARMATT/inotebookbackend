@@ -2,11 +2,12 @@ const express = require("express");
 const {
   body,
   validationResult,
-  ValidationChain,
+ 
 } = require("express-validator");
 const User = require("../models/User");
 const router = express.Router();
 var bcrypt = require("bcryptjs");
+const jwt =require("jsonwebtoken")
 const JWT_SECRET = "NIGAMISLEARNINGUNDERPRESSURE";
 //create a user using :POST"/API/AUTH"
 router.post(
@@ -44,7 +45,7 @@ router.post(
         },
       };
       const authToken = jwt.sign(data, JWT_SECRET);
-      console.log(jwtData);
+      // console.log(jwtdata);
 
       res.json({ authToken, Progress: "Uploaded successfully" });
     } catch (error) {
@@ -53,5 +54,47 @@ router.post(
     }
   }
 );
+
+
+//authenticate a user using :POST"/API//login"
+router.post(
+  "/login",
+  [
+    body("password", "sahi sahi daliye naa").isLength({ min: 6 }),
+    body("email", "must be like an email").isEmail(),
+  ],
+  async (req, res) => {
+     // for errors return bad request
+     const errors = validationResult(req);
+     if (!errors.isEmpty()) {
+       return res.status(400).json({ errors: errors.array() });
+     }
+
+const{email,password}=req.body;
+
+try{
+let user= await User.findOne({email});
+if(!user){
+  return res.status(400).json({error:"either password or username is invalid"})
+}
+const passwordCompare= await bcrypt.compare(password,user.password);
+if(!passwordCompare){
+  return res.status.json({error:"bhosdike sahi daal"})
+}
+const data = {
+  user: {
+    id: user.id,
+  },
+};
+const authToken = jwt.sign(data, JWT_SECRET);
+// console.log(jwtdata);
+
+res.json({ authToken, Progress: "Uploaded successfully" });
+}catch(error){
+  console.log(error);
+  res.status(500).send("maa chud gyi");
+}
+
+  })
 
 module.exports = router;
