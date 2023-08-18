@@ -1,8 +1,10 @@
 const mongoose=require ('mongoose')
+const{Schema}=mongoose;
 const NotesSchema=new Schema({
-    name:{
-        type:String,
-       
+    user:{
+        // type:mongoose.Schema.Type.ObjectId,
+        // ref:"user",
+      
     },
     title:{
         type:String,

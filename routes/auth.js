@@ -47,7 +47,7 @@ router.post(
       res.json({ authToken, Progress: "Uploaded successfully" });
     } catch (error) {
       console.log(error);
-      res.status(500).send("maa chud gyi");
+      res.status(500).send("Internal Server error...");
     }
   }
 );
@@ -90,7 +90,7 @@ router.post(
       res.json({ authToken, Progress: "Uploaded successfully" });
     } catch (error) {
       console.log(error);
-      res.status(500).send("maa chud gyi");
+      res.status(500).send("Internal Server error...");
     }
   }
 );
@@ -106,7 +106,7 @@ router.post(
       res.send(user);
     } catch (error) {
       console.log(error);
-      res.status(500).send("maa chud gyi");
+      res.status(500).send("Internal Server error...");
     }
   }
 );
